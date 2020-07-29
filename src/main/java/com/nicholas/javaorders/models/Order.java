@@ -1,5 +1,7 @@
 package com.nicholas.javaorders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,10 +22,12 @@ public class Order {
     private String orderdescription;
 
     @ManyToOne()
+    @JsonIgnoreProperties("orders")
     @JoinColumn(name = "custcode", nullable = false)
     private Customer customer;
 
     @ManyToMany()
+    @JsonIgnoreProperties("orders")
     @JoinTable(name = "orderspayments",
             joinColumns = @JoinColumn(name = "ordnum"),
             inverseJoinColumns = @JoinColumn(name = "paymentid"))

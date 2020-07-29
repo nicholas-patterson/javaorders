@@ -1,5 +1,7 @@
 package com.nicholas.javaorders.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ public class Customer {
     @Column(nullable = false)
     private String grade;
 
-    private double openingam;
+    private double openingamt;
 
     private double outstandingamt;
 
@@ -41,9 +43,11 @@ public class Customer {
     // Need foreign key field
     @ManyToOne
     @JoinColumn(name = "agentcode", nullable = false)
+    @JsonIgnoreProperties("customer")
     private Agent agent;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties("customer")
     List<Order> orders = new ArrayList<>();
 
 
@@ -51,12 +55,12 @@ public class Customer {
         // required empty constructor for JPA
     }
 
-    public Customer(String custcity, String custcountry, String custname, String grade, double openingam, double outstandingamt, double paymentamt, String phone, double receiveamt, String workingarea) {
+    public Customer(String custcity, String custcountry, String custname, String grade, double openingamt, double outstandingamt, double paymentamt, String phone, double receiveamt, String workingarea) {
         this.custcity = custcity;
         this.custcountry = custcountry;
         this.custname = custname;
         this.grade = grade;
-        this.openingam = openingam;
+        this.openingamt = openingamt;
         this.outstandingamt = outstandingamt;
         this.paymentamt = paymentamt;
         this.phone = phone;
@@ -104,12 +108,12 @@ public class Customer {
         this.grade = grade;
     }
 
-    public double getOpeningam() {
-        return openingam;
+    public double getOpeningamt() {
+        return openingamt;
     }
 
-    public void setOpeningam(double openingam) {
-        this.openingam = openingam;
+    public void setOpeningamt(double openingam) {
+        this.openingamt = openingamt;
     }
 
     public double getOutstandingamt() {
